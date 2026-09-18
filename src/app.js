@@ -37,12 +37,19 @@ const STUDENTS = [
   }
 ];
 
+const OFFICIAL_ASSESSMENT_TYPES = [
+  "Continuous Assessment (CA)",
+  "Test",
+  "Mid-Semester Test",
+  "Examination"
+];
+
 const INITIAL_ASSESSMENTS = [
   {
     id: "csc301-ca1",
     code: "CSC 301",
     title: "Structured Programming & Algorithms",
-    type: "Continuous Assessment Test 1",
+    type: "Continuous Assessment (CA)",
     durationMinutes: 10,
     totalMarks: 15,
     dueDate: "Tomorrow, 4:00 PM",
@@ -102,10 +109,10 @@ const INITIAL_ASSESSMENTS = [
     ]
   },
   {
-    id: "csc303-ca1",
+    id: "csc303-midsem",
     code: "CSC 303",
     title: "Database Design & Management Systems",
-    type: "Mid-Semester Assessment",
+    type: "Mid-Semester Test",
     durationMinutes: 12,
     totalMarks: 15,
     dueDate: "In 3 Days",
@@ -155,10 +162,10 @@ const INITIAL_ASSESSMENTS = [
     ]
   },
   {
-    id: "edu311-ca1",
+    id: "edu311-test",
     code: "EDU 311",
     title: "Educational Technology & Instructional Delivery",
-    type: "Continuous Assessment 1",
+    type: "Test",
     durationMinutes: 15,
     totalMarks: 20,
     dueDate: "Next Week",
@@ -186,8 +193,71 @@ const INITIAL_ASSESSMENTS = [
         correct: 0
       }
     ]
+  },
+  {
+    id: "csc305-exam",
+    code: "CSC 305",
+    title: "Operating Systems & Concurrency Architecture",
+    type: "Examination",
+    durationMinutes: 60,
+    totalMarks: 70,
+    dueDate: "Official Exam Timetable",
+    lecturer: "Dr. (Mrs) K. E. Adeleke",
+    status: "Available",
+    questions: [
+      {
+        text: "Which process scheduling algorithm guarantees minimal average waiting time for a set of independent tasks?",
+        options: [
+          "Shortest Job First (SJF)",
+          "First-Come First-Served (FCFS)",
+          "Round Robin (RR)",
+          "Priority Scheduling without aging"
+        ],
+        correct: 0
+      },
+      {
+        text: "In modern operating systems, virtual memory addresses are translated to physical frames using which table?",
+        options: [
+          "Interrupt Vector Table",
+          "Page Table / TLB",
+          "File Allocation Table",
+          "Master Boot Record"
+        ],
+        correct: 1
+      },
+      {
+        text: "Which of the following is NOT a necessary condition for deadlock according to Coffman?",
+        options: [
+          "Mutual Exclusion",
+          "Hold and Wait",
+          "Preemption Permitted",
+          "Circular Wait"
+        ],
+        correct: 2
+      }
+    ]
   }
 ];
+
+// Helper to sanitize any stored assessments to ensure only official Senate types
+function sanitizeStoredAssessments(raw) {
+  if (!Array.isArray(raw) || raw.length === 0) return INITIAL_ASSESSMENTS;
+  return raw.map(ass => {
+    let cleanType = ass.type;
+    if (cleanType === "Continuous Assessment Test 1" || cleanType === "Continuous Assessment Test 2" || cleanType === "Continuous Assessment 1" || cleanType === "Continuous Assessment 2" || cleanType === "CA") {
+      cleanType = "Continuous Assessment (CA)";
+    } else if (cleanType === "Mid-Semester Assessment" || cleanType === "Mid-Semester Quiz" || cleanType === "Mid-Semester CBT Quiz") {
+      cleanType = "Mid-Semester Test";
+    } else if (cleanType === "Quiz" || cleanType === "Practical CBT Lab") {
+      cleanType = "Test";
+    } else if (cleanType === "Final Examination" || cleanType === "Final Exam") {
+      cleanType = "Examination";
+    } else if (!OFFICIAL_ASSESSMENT_TYPES.includes(cleanType)) {
+      cleanType = "Continuous Assessment (CA)";
+    }
+    return { ...ass, type: cleanType };
+  });
+}
 
 // Initial Gradebook Records
 const INITIAL_GRADES = [
@@ -204,7 +274,9 @@ const state = {
   activeSession: localStorage.getItem("afued_session") || DEFAULT_SESSION,
   activeView: "overview", // 'overview' | 'assessments' | 'gradebook' | 'lecturer' | 'admin'
   currentUser: STUDENTS[0],
-  assessments: JSON.parse(localStorage.getItem("afued_assessments") || JSON.stringify(INITIAL_ASSESSMENTS)),
+  studentTypeFilter: "ALL",
+  lecturerTypeFilter: "ALL",
+  assessments: sanitizeStoredAssessments(JSON.parse(localStorage.getItem("afued_assessments") || JSON.stringify(INITIAL_ASSESSMENTS))),
   grades: JSON.parse(localStorage.getItem("afued_grades") || JSON.stringify(INITIAL_GRADES)),
   
   // CBT Exam Execution State
@@ -218,11 +290,15 @@ const state = {
   examScoreResult: null
 };
 
+// Persist sanitized state so legacy storage does not retain decommissioned types
+localStorage.setItem("afued_assessments", JSON.stringify(state.assessments));
+
 // Resilient Application Bootstrap
 function initApp() {
   setupNavigation();
   setupRoleSwitcher();
   setupSessionManager();
+  setupFilterControls();
   setupCbtControls();
   setupPrintSlipControls();
   setupLecturerControls();
@@ -265,6 +341,43 @@ function setupRoleSwitcher() {
       setRole(role);
     });
   });
+}
+
+// Assessment Type Filtering System
+function setupFilterControls() {
+  document.querySelectorAll("[data-filter-type]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-filter-type]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.studentTypeFilter = btn.getAttribute("data-filter-type");
+      renderStudentView();
+    });
+  });
+
+  document.querySelectorAll("[data-lecturer-filter]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-lecturer-filter]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.lecturerTypeFilter = btn.getAttribute("data-lecturer-filter");
+      renderLecturerView();
+    });
+  });
+}
+
+// Visual badge styling corresponding to Senate official assessment categories
+function getTypeBadgeClass(type) {
+  switch (type) {
+    case "Continuous Assessment (CA)":
+      return "badge-green";
+    case "Test":
+      return "badge-blue";
+    case "Mid-Semester Test":
+      return "badge-gold";
+    case "Examination":
+      return "badge-purple";
+    default:
+      return "badge-green";
+  }
 }
 
 function setRole(role) {
@@ -379,18 +492,52 @@ function renderStudentView() {
   const container = document.getElementById("available-assessments-grid");
   if (!container) return;
 
+  // Update live type counters
+  const countCa = state.assessments.filter(a => a.type === "Continuous Assessment (CA)").length;
+  const countTest = state.assessments.filter(a => a.type === "Test").length;
+  const countMidsem = state.assessments.filter(a => a.type === "Mid-Semester Test").length;
+  const countExam = state.assessments.filter(a => a.type === "Examination").length;
+
+  const elCa = document.getElementById("count-type-ca");
+  const elTest = document.getElementById("count-type-test");
+  const elMidsem = document.getElementById("count-type-midsem");
+  const elExam = document.getElementById("count-type-exam");
+
+  if (elCa) elCa.textContent = countCa;
+  if (elTest) elTest.textContent = countTest;
+  if (elMidsem) elMidsem.textContent = countMidsem;
+  if (elExam) elExam.textContent = countExam;
+
+  // Filter assessments based on selected official assessment type
+  const filtered = state.assessments.filter(ass => {
+    if (!state.studentTypeFilter || state.studentTypeFilter === "ALL") return true;
+    return ass.type === state.studentTypeFilter;
+  });
+
   container.innerHTML = "";
 
-  state.assessments.forEach(ass => {
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align:center; padding:2.5rem 1rem; background:var(--white); border:1px dashed var(--slate-300); border-radius:var(--radius-md);">
+        <p style="font-weight:700; color:var(--slate-700); margin-bottom:0.25rem;">No assessments found under "${state.studentTypeFilter}".</p>
+        <p style="font-size:0.82rem; color:var(--slate-500);">Please select another official assessment type or choose 'All Official Types'.</p>
+      </div>
+    `;
+    renderStudentGradebook();
+    return;
+  }
+
+  filtered.forEach(ass => {
     const isCompleted = state.grades.some(g => g.code === ass.code && g.status === "Verified");
+    const badgeClass = getTypeBadgeClass(ass.type);
     
     const card = document.createElement("div");
     card.className = "assessment-item";
     card.innerHTML = `
       <div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-          <span class="badge ${isCompleted ? 'badge-green' : 'badge-gold'}">
-            ${isCompleted ? 'Completed & Scored' : ass.type}
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.35rem;">
+          <span class="badge ${badgeClass}">
+            ${ass.type}
           </span>
           <span style="font-size:0.75rem; color:var(--slate-500); font-weight:600;">${ass.durationMinutes} Mins</span>
         </div>
@@ -405,7 +552,7 @@ function renderStudentView() {
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--slate-100);">
           <span style="font-size:0.75rem; color:var(--slate-500);">Due: ${ass.dueDate}</span>
           <button class="btn btn-sm ${isCompleted ? 'btn-secondary' : 'btn-primary'}" id="btn-start-${ass.id}">
-            ${isCompleted ? 'Retake Practice' : 'Start CBT Test'}
+            ${isCompleted ? 'Retake Assessment' : 'Start CBT Assessment'}
           </button>
         </div>
       </div>
@@ -471,6 +618,11 @@ function startCbtExam(assessment) {
 
   modal.classList.remove("hidden");
   document.getElementById("exam-modal-title").textContent = `${assessment.code} - ${assessment.title}`;
+  const modalTypeBadge = document.getElementById("exam-modal-type-badge");
+  if (modalTypeBadge) {
+    modalTypeBadge.textContent = assessment.type;
+    modalTypeBadge.className = `badge ${getTypeBadgeClass(assessment.type)}`;
+  }
 
   // Start Countdown Timer
   if (state.examTimerInterval) clearInterval(state.examTimerInterval);
@@ -819,6 +971,11 @@ function setupLecturerControls() {
       return;
     }
 
+    if (!OFFICIAL_ASSESSMENT_TYPES.includes(type)) {
+      alert("Invalid assessment type selected. Only Senate official assessment types are permitted: Continuous Assessment (CA), Test, Mid-Semester Test, Examination.");
+      return;
+    }
+
     const newAss = {
       id: `${code.toLowerCase().replace(/\s+/g, '')}-${Date.now()}`,
       code,
@@ -841,7 +998,7 @@ function setupLecturerControls() {
     state.assessments.unshift(newAss);
     localStorage.setItem("afued_assessments", JSON.stringify(state.assessments));
 
-    alert(`New CBT Continuous Assessment for ${code} successfully published!`);
+    alert(`New CBT ${type} for ${code} successfully published!`);
     document.getElementById("create-assessment-modal")?.classList.add("hidden");
     document.getElementById("form-create-assessment").reset();
     renderStudentView();
@@ -853,25 +1010,43 @@ function renderLecturerView() {
   const container = document.getElementById("lecturer-assessments-list");
   if (!container) return;
 
+  const filtered = state.assessments.filter(ass => {
+    if (!state.lecturerTypeFilter || state.lecturerTypeFilter === "ALL") return true;
+    return ass.type === state.lecturerTypeFilter;
+  });
+
   container.innerHTML = "";
 
-  state.assessments.forEach(ass => {
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:2rem 1rem; background:var(--white); border:1px dashed var(--slate-300); border-radius:var(--radius-md); margin-bottom:1rem;">
+        <p style="font-weight:700; color:var(--slate-700); margin-bottom:0.25rem;">No assessments created under "${state.lecturerTypeFilter}".</p>
+        <p style="font-size:0.82rem; color:var(--slate-500);">Click 'Create New Assessment' above to schedule one.</p>
+      </div>
+    `;
+    renderLecturerScoreTable();
+    return;
+  }
+
+  filtered.forEach(ass => {
     const item = document.createElement("div");
     item.className = "card";
     item.style.marginBottom = "1rem";
+    const badgeClass = getTypeBadgeClass(ass.type);
+
     item.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
         <div>
-          <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.35rem;">
+          <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.35rem; flex-wrap:wrap;">
             <span class="badge badge-green">${ass.code}</span>
-            <span class="badge badge-gold">${ass.type}</span>
+            <span class="badge ${badgeClass}">${ass.type}</span>
             <span style="font-size:0.75rem; color:var(--slate-500);">${ass.durationMinutes} Minutes | ${ass.questions.length} Questions</span>
           </div>
           <h3 style="font-size:1.15rem; font-weight:800; color:var(--slate-900);">${ass.title}</h3>
           <p style="font-size:0.8rem; color:var(--slate-500);">Allocated Continuous Assessment Marks: ${ass.totalMarks} Marks</p>
         </div>
         <div style="display:flex; gap:0.5rem;">
-          <button class="btn btn-sm btn-secondary" onclick="alert('Viewing question bank for ${ass.code}')">Preview Questions</button>
+          <button class="btn btn-sm btn-secondary" onclick="alert('Viewing question bank for ${ass.code} (${ass.type})')">Preview Questions</button>
           <button class="btn btn-sm btn-primary" onclick="alert('Assessment ${ass.code} is active for students in ${state.activeSession}')">Active in Portal</button>
         </div>
       </div>

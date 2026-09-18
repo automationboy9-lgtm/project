@@ -176,8 +176,50 @@
           <button class="btn btn-secondary" data-nav-target="gradebook">View My CA Gradebook</button>
         </div>
 
+        <!-- Official Assessment Types Metric Strip -->
+        <div class="type-analytics-grid" style="margin-top:1.25rem;">
+          <div class="type-analytics-card">
+            <div>
+              <div class="type-title">Continuous Assessment (CA)</div>
+              <span style="font-size:0.75rem; color:var(--slate-500);">30% Weight</span>
+            </div>
+            <div class="type-count" id="count-type-ca">1</div>
+          </div>
+          <div class="type-analytics-card">
+            <div>
+              <div class="type-title">Test</div>
+              <span style="font-size:0.75rem; color:var(--slate-500);">15-20 Marks</span>
+            </div>
+            <div class="type-count" id="count-type-test">1</div>
+          </div>
+          <div class="type-analytics-card">
+            <div>
+              <div class="type-title">Mid-Semester Test</div>
+              <span style="font-size:0.75rem; color:var(--slate-500);">Mid-Term Eval</span>
+            </div>
+            <div class="type-count" id="count-type-midsem">1</div>
+          </div>
+          <div class="type-analytics-card">
+            <div>
+              <div class="type-title">Examination</div>
+              <span style="font-size:0.75rem; color:var(--slate-500);">70% Final Exam</span>
+            </div>
+            <div class="type-count" id="count-type-exam">1</div>
+          </div>
+        </div>
+
+        <!-- Official Assessment Type Filter Pills -->
+        <div class="filter-pills-bar">
+          <span style="font-size:0.8rem; font-weight:700; color:var(--slate-600); margin-right:0.25rem;">Filter by Type:</span>
+          <button class="filter-pill active" data-filter-type="ALL">All Official Types</button>
+          <button class="filter-pill" data-filter-type="Continuous Assessment (CA)">Continuous Assessment (CA)</button>
+          <button class="filter-pill" data-filter-type="Test">Test</button>
+          <button class="filter-pill" data-filter-type="Mid-Semester Test">Mid-Semester Test</button>
+          <button class="filter-pill" data-filter-type="Examination">Examination</button>
+        </div>
+
         <!-- Assessments Grid Container -->
-        <div class="grid-3" id="available-assessments-grid" style="margin-top:1.25rem;">
+        <div class="grid-3" id="available-assessments-grid" style="margin-top:1rem;">
           <!-- Dynamically populated by app.js -->
         </div>
       </section>
@@ -245,6 +287,15 @@
             <div>
               <button class="btn btn-primary" id="btn-open-create-assessment">➕ Create New Assessment</button>
             </div>
+          </div>
+
+          <div class="filter-pills-bar" style="margin-bottom:1.25rem;">
+            <span style="font-size:0.8rem; font-weight:700; color:var(--slate-600); margin-right:0.25rem;">Filter by Type:</span>
+            <button class="filter-pill active" data-lecturer-filter="ALL">All Official Types</button>
+            <button class="filter-pill" data-lecturer-filter="Continuous Assessment (CA)">Continuous Assessment (CA)</button>
+            <button class="filter-pill" data-lecturer-filter="Test">Test</button>
+            <button class="filter-pill" data-lecturer-filter="Mid-Semester Test">Mid-Semester Test</button>
+            <button class="filter-pill" data-lecturer-filter="Examination">Examination</button>
           </div>
 
           <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.85rem; color:var(--slate-800);">Your Active Course Assessments</h3>
@@ -324,6 +375,65 @@
           </div>
         </div>
 
+        <!-- Senate Assessment Classification Policy -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">AFUED Senate Approved Assessment Classification &amp; Weightings</h3>
+              <p class="card-subtitle">Official university regulatory framework for all academic evaluations (Harmonized Academic Policy)</p>
+            </div>
+            <span class="badge badge-green">Official Standards</span>
+          </div>
+          <div class="grid-4" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:0.5rem;">
+            <div style="border:1.5px solid var(--slate-200); padding:1rem; border-radius:var(--radius-md); background:var(--white);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span class="badge badge-green">Type 1</span>
+                <span style="font-size:0.75rem; font-weight:700; color:var(--afued-green);">30% CA Weight</span>
+              </div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--slate-900);">Continuous Assessment (CA)</h4>
+              <p style="font-size:0.78rem; color:var(--slate-600); margin-top:0.35rem;">
+                Formal structured course evaluations, assignments, and practical laboratory CBT tests contributing to the mandatory 30% CA score.
+              </p>
+            </div>
+
+            <div style="border:1.5px solid var(--slate-200); padding:1rem; border-radius:var(--radius-md); background:var(--white);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span class="badge badge-blue">Type 2</span>
+                <span style="font-size:0.75rem; font-weight:700; color:#0369a1;">15-20 Marks</span>
+              </div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--slate-900);">Test</h4>
+              <p style="font-size:0.78rem; color:var(--slate-600); margin-top:0.35rem;">
+                Periodic in-class or proctored CBT tests verifying topic mastery throughout the semester.
+              </p>
+            </div>
+
+            <div style="border:1.5px solid var(--slate-200); padding:1rem; border-radius:var(--radius-md); background:var(--white);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span class="badge badge-gold">Type 3</span>
+                <span style="font-size:0.75rem; font-weight:700; color:var(--gold-dark);">Mid-Semester</span>
+              </div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--slate-900);">Mid-Semester Test</h4>
+              <p style="font-size:0.78rem; color:var(--slate-600); margin-top:0.35rem;">
+                Harmonized mid-point examination assessing the first half of the syllabus under standardized CBT conditions.
+              </p>
+            </div>
+
+            <div style="border:1.5px solid var(--slate-200); padding:1rem; border-radius:var(--radius-md); background:var(--white);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span class="badge badge-purple">Type 4</span>
+                <span style="font-size:0.75rem; font-weight:700; color:#6b21a8;">70% Final Weight</span>
+              </div>
+              <h4 style="font-size:0.95rem; font-weight:800; color:var(--slate-900);">Examination</h4>
+              <p style="font-size:0.78rem; color:var(--slate-600); margin-top:0.35rem;">
+                Official end-of-semester degree examination administered by the Directorate of ICT and Faculty Examination Officers.
+              </p>
+            </div>
+          </div>
+          <div style="margin-top:1rem; padding:0.75rem 1rem; background:#f8fafc; border-radius:var(--radius-sm); border:1px solid #e2e8f0; font-size:0.8rem; color:var(--slate-600);">
+            ℹ️ <strong>Senate Classification Directive:</strong> Only the four recognized types above are authorized for course grading in AFUED. Legacy or informal formats such as Quizzes and Practice Assessments have been discontinued.
+          </div>
+        </div>
+
         <!-- Academic Structure (Schools & Departments) -->
         <div class="card">
           <div class="card-header">
@@ -356,7 +466,7 @@
       <div class="modal-content" style="max-width:900px;">
         <div class="modal-header">
           <div>
-            <span class="badge badge-green" style="margin-bottom:0.25rem;">AFUED Computer-Based Assessment</span>
+            <span id="exam-modal-type-badge" class="badge badge-green" style="margin-bottom:0.25rem;">Continuous Assessment (CA)</span>
             <h3 id="exam-modal-title" style="font-size:1.2rem; font-weight:800; color:var(--afued-green-dark);">
               CSC 301 - Structured Programming
             </h3>
@@ -511,11 +621,11 @@
             <div class="grid-3">
               <div class="form-group">
                 <label class="form-label" for="new-ass-type">Assessment Type</label>
-                <select id="new-ass-type" class="form-select">
-                  <option value="Continuous Assessment Test 1">CA Test 1 (15 Marks)</option>
-                  <option value="Continuous Assessment Test 2">CA Test 2 (15 Marks)</option>
-                  <option value="Mid-Semester Quiz">Mid-Semester Quiz</option>
-                  <option value="Practical CBT Lab">Practical CBT Lab</option>
+                <select id="new-ass-type" class="form-select" required>
+                  <option value="Continuous Assessment (CA)">Continuous Assessment (CA)</option>
+                  <option value="Test">Test</option>
+                  <option value="Mid-Semester Test">Mid-Semester Test</option>
+                  <option value="Examination">Examination</option>
                 </select>
               </div>
               <div class="form-group">

@@ -186,9 +186,9 @@ CREATE TABLE IF NOT EXISTS public.courses (
 -- 14. ASSESSMENTS
 CREATE TYPE assessment_type_enum AS ENUM (
     'CONTINUOUS_ASSESSMENT',
+    'TEST',
     'MID_SEMESTER_TEST',
-    'FINAL_EXAMINATION',
-    'QUIZ'
+    'EXAMINATION'
 );
 
 CREATE TYPE assessment_status_enum AS ENUM (
@@ -516,7 +516,7 @@ CREATE TABLE IF NOT EXISTS public.assessments (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title TEXT NOT NULL,
     description TEXT,
-    assessment_type TEXT NOT NULL CHECK (assessment_type IN ('QUIZ', 'TEST', 'CONTINUOUS_ASSESSMENT', 'MID_SEMESTER_TEST', 'FINAL_EXAMINATION', 'PRACTICE_ASSESSMENT')),
+    assessment_type TEXT NOT NULL CHECK (assessment_type IN ('CONTINUOUS_ASSESSMENT', 'TEST', 'MID_SEMESTER_TEST', 'EXAMINATION')),
     course_id UUID REFERENCES public.courses(id) ON DELETE SET NULL,
     course_code TEXT NOT NULL,
     course_title TEXT NOT NULL,

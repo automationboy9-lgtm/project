@@ -459,7 +459,7 @@
           <div>
             <h3 class="card-title">Enrolled Continuous Assessments</h3>
             <p style="font-size: 0.8rem; color: var(--slate-600); margin-top: 0.2rem;">
-              Timed continuous assessment tests and quizzes.
+              Timed continuous assessments (CA), tests, mid-semester tests, and examinations.
             </p>
           </div>
         </div>
@@ -636,7 +636,7 @@
           id: 'csc-301-ca1',
           code: 'CSC 301',
           title: 'Operating Systems & Concurrency',
-          type: 'Continuous Assessment 1',
+          type: 'Continuous Assessment (CA)',
           totalMarks: 30,
           durationMinutes: 15,
           score: null,
@@ -650,13 +650,37 @@
           id: 'csc-305-ca2',
           code: 'CSC 305',
           title: 'Database Design & SQL Architecture',
-          type: 'Continuous Assessment 2',
+          type: 'Mid-Semester Test',
           totalMarks: 30,
           durationMinutes: 20,
           score: null,
           questions: [
             { id: 1, text: 'Which normal form eliminates partial dependency?', options: ['1NF', '2NF', '3NF', 'BCNF'], correct: 1 },
             { id: 2, text: 'Keyword to eliminate duplicates?', options: ['UNIQUE', 'DISTINCT', 'DIFFERENT', 'ISOLATE'], correct: 1 }
+          ]
+        },
+        {
+          id: 'edu-311-test',
+          code: 'EDU 311',
+          title: 'Educational Technology & Media',
+          type: 'Test',
+          totalMarks: 20,
+          durationMinutes: 15,
+          score: null,
+          questions: [
+            { id: 1, text: 'Which learning activity yields the highest retention rate?', options: ['Reading text', 'Hearing words', 'Simulation / Direct Purposeful Doing', 'Static pictures'], correct: 2 }
+          ]
+        },
+        {
+          id: 'csc-303-exam',
+          code: 'CSC 303',
+          title: 'Algorithms & Complexity Analysis',
+          type: 'Examination',
+          totalMarks: 70,
+          durationMinutes: 60,
+          score: null,
+          questions: [
+            { id: 1, text: 'What is the tight worst-case time complexity of merge sort on an array of size n?', options: ['O(n)', 'O(n log n)', 'O(n²)', 'O(2^n)'], correct: 1 }
           ]
         }
       ],

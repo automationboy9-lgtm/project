@@ -30,7 +30,7 @@ const state = {
       id: 'csc-301-ca1',
       code: 'CSC 301',
       title: 'Operating Systems & Concurrency',
-      type: 'Continuous Assessment 1',
+      type: 'Continuous Assessment (CA)',
       totalMarks: 30,
       durationMinutes: 15,
       status: 'AVAILABLE',
@@ -77,7 +77,7 @@ const state = {
       id: 'csc-305-ca2',
       code: 'CSC 305',
       title: 'Database Design & SQL Architecture',
-      type: 'Continuous Assessment 2',
+      type: 'Mid-Semester Test',
       totalMarks: 30,
       durationMinutes: 20,
       status: 'AVAILABLE',
@@ -104,6 +104,54 @@ const state = {
             'Availability, Concurrency, Indexing, Delivery',
             'Access, Cache, Interaction, Durability'
           ],
+          correct: 0
+        }
+      ]
+    },
+    {
+      id: 'edu-311-test',
+      code: 'EDU 311',
+      title: 'Educational Technology & Media',
+      type: 'Test',
+      totalMarks: 20,
+      durationMinutes: 15,
+      status: 'AVAILABLE',
+      score: null,
+      questions: [
+        {
+          id: 1,
+          text: 'According to Edgar Dale’s Cone of Experience, which learning activity yields the highest retention rate?',
+          options: ['Reading text', 'Hearing words', 'Direct purposeful experience / Simulation', 'Viewing static pictures'],
+          correct: 2
+        },
+        {
+          id: 2,
+          text: 'In the ASSURE instructional model, what does the first "S" stand for?',
+          options: ['State Objectives', 'Select Media', 'Standardize Testing', 'Synthesize Resources'],
+          correct: 0
+        }
+      ]
+    },
+    {
+      id: 'csc-303-exam',
+      code: 'CSC 303',
+      title: 'Algorithms & Complexity Analysis',
+      type: 'Examination',
+      totalMarks: 70,
+      durationMinutes: 60,
+      status: 'AVAILABLE',
+      score: null,
+      questions: [
+        {
+          id: 1,
+          text: 'What is the tight worst-case time complexity of merge sort on an array of size n?',
+          options: ['O(n)', 'O(n log n)', 'O(n²)', 'O(2^n)'],
+          correct: 1
+        },
+        {
+          id: 2,
+          text: 'Which algorithm design paradigm does Dijkstra’s Single-Source Shortest Path algorithm employ?',
+          options: ['Greedy Method', 'Dynamic Programming', 'Backtracking', 'Branch and Bound'],
           correct: 0
         }
       ]

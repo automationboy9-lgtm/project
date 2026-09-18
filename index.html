@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFUED/ACT ASSESS - Adeyemi Federal University of Education</title>
+    <meta name="description" content="Professional digital assessment platform for Adeyemi Federal University of Education (AFUED). Supporting online tests, continuous assessment, result management, and academic administration." />
+    <meta property="og:title" content="AFUED/ACT ASSESS - Adeyemi Federal University of Education" />
+    <meta property="og:description" content="Professional digital assessment platform for Adeyemi Federal University of Education (AFUED). Supporting online tests, continuous assessment, result management, and academic administration." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css">
+  </head>
+  <body>
+
+    <!-- Institutional Top Announcement Bar -->
+    <header class="top-bar">
+      <div class="top-bar-inner">
+        <div class="institution-title">
+          <span class="pulse-dot"></span>
+          <span>ADEYEMI FEDERAL UNIVERSITY OF EDUCATION, ONDO — DIRECTORATE OF ICT</span>
+        </div>
+        <div class="session-indicator-wrap">
+          <span class="session-indicator">
+            <span>🎓</span>
+            <span class="current-session-label">2024/2025 Academic Session</span>
+          </span>
+          <button id="edit-session-btn" class="session-edit-btn" title="Change Academic Session">Edit Session</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Navigation Header -->
+    <nav class="main-header">
+      <div class="header-container">
+        <!-- Logo & Brand Title -->
+        <a class="brand-badge" data-nav-target="overview" href="#overview" id="header-brand-logo">
+          <div class="brand-logo-circle">A</div>
+          <div class="brand-names">
+            <h1>AFUED / ACT ASSESS</h1>
+            <p>Senate Approved Continuous Assessment &amp; CBT Portal</p>
+          </div>
+        </a>
+
+        <!-- Role Switcher & Controls -->
+        <div class="header-controls">
+          <div class="role-switcher" id="role-switcher-container">
+            <button class="role-tab active" data-role="student" id="role-tab-student">👨‍🎓 Student</button>
+            <button class="role-tab" data-role="lecturer" id="role-tab-lecturer">👩‍🏫 Lecturer</button>
+            <button class="role-tab" data-role="admin" id="role-tab-admin">⚙️ ICT Admin</button>
+          </div>
+
+          <!-- User Profile Badge -->
+          <div class="user-profile-badge" id="header-user-badge">
+            <div class="user-avatar-tiny">BA</div>
+            <span><strong>Babatunde Adewale</strong> (AFUED/2021/CSC/0481)</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Secondary Tab Bar -->
+    <div style="background:var(--white); border-bottom:1px solid var(--slate-200); padding:0.25rem 1.25rem;">
+      <div style="max-width:1240px; margin:0 auto; display:flex; gap:0.5rem; overflow-x:auto;">
+        <button class="btn btn-sm btn-secondary" data-nav-target="overview" id="nav-btn-overview">📌 Portal Overview</button>
+        <button class="btn btn-sm btn-secondary" data-nav-target="assessments" id="nav-btn-assessments">📝 CBT Assessments</button>
+        <button class="btn btn-sm btn-secondary" data-nav-target="gradebook" id="nav-btn-gradebook">📊 CA Gradebook &amp; Slip</button>
+        <button class="btn btn-sm btn-secondary" data-nav-target="lecturer" id="nav-btn-lecturer">📋 Lecturer Workspace</button>
+        <button class="btn btn-sm btn-secondary" data-nav-target="admin" id="nav-btn-admin">🏛️ ICT Administration</button>
+      </div>
+    </div>
+
+    <!-- Main Container Content -->
+    <main class="container">
+
+      <!-- ===================================================================
+           VIEW 1: PORTAL OVERVIEW
+           =================================================================== -->
+      <section id="view-overview" class="view-section active">
+        <!-- Hero Banner -->
+        <div class="user-hero">
+          <div class="user-hero-info">
+            <span class="eyebrow">Academic Session Portal</span>
+            <h2>Welcome to Adeyemi Federal University of Education CBT Platform</h2>
+            <p>Centralized Continuous Assessment (30%) and Computer-Based Examination system for undergraduate and NCE degree candidates.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-box">
+              <span class="stat-val current-session-short">2024/2025</span>
+              <span class="stat-lbl">Active Session</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">30%</span>
+              <span class="stat-lbl">CA Weight</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">6 Schools</span>
+              <span class="stat-lbl">Faculties</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Access Action Cards -->
+        <div class="grid-3" style="margin-bottom: 2rem;">
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-size:2rem; margin-bottom:0.5rem;">📝</div>
+              <h3 class="card-title">Continuous Assessment Tests</h3>
+              <p class="card-subtitle">Take your scheduled timed Continuous Assessment tests (15–20 marks) with instant scoring and Senate record verification.</p>
+            </div>
+            <div style="margin-top:1.25rem;">
+              <button class="btn btn-primary" data-nav-target="assessments" id="btn-quick-take-test">Start or View Tests →</button>
+            </div>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-size:2rem; margin-bottom:0.5rem;">📄</div>
+              <h3 class="card-title">Official Result Slips</h3>
+              <p class="card-subtitle">Review your verified Continuous Assessment scores, weighted totals, and generate your printable university result slip.</p>
+            </div>
+            <div style="margin-top:1.25rem;">
+              <button class="btn btn-secondary" data-nav-target="gradebook" id="btn-quick-view-gradebook">View Gradebook &amp; Slips →</button>
+            </div>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-size:2rem; margin-bottom:0.5rem;">🏛️</div>
+              <h3 class="card-title">Senate Regulations &amp; Policy</h3>
+              <p class="card-subtitle">Harmonized grading formula: Continuous Assessment (30 Marks) + Semester Examination (70 Marks) = 100 Marks Total.</p>
+            </div>
+            <div style="margin-top:1.25rem;">
+              <button class="btn btn-accent" data-nav-target="admin" id="btn-quick-view-admin">View Institutional Rules →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Institutional Regulations Summary -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">AFUED Continuous Assessment Harmonized Guidelines</h3>
+              <p class="card-subtitle">Official policy governing CBT assessments and semester examinations</p>
+            </div>
+            <span class="badge badge-green">Senate Approved</span>
+          </div>
+          <div class="grid-2">
+            <div style="font-size:0.88rem; color:var(--slate-700);">
+              <h4 style="font-weight:700; color:var(--afued-green); margin-bottom:0.35rem;">1. Mandatory CA Participation</h4>
+              <p style="margin-bottom:0.75rem;">Under Senate regulations, no candidate shall be eligible to sit for the final 70% degree examination without completing the 30% Continuous Assessment components.</p>
+              <h4 style="font-weight:700; color:var(--afued-green); margin-bottom:0.35rem;">2. Anti-Malpractice Proctoring</h4>
+              <p>All CBT tests are proctored via timed sessions with randomized question sequences and automated submission upon expiration.</p>
+            </div>
+            <div style="font-size:0.88rem; color:var(--slate-700);">
+              <h4 style="font-weight:700; color:var(--afued-green); margin-bottom:0.35rem;">3. Score Computation &amp; Weighting</h4>
+              <p style="margin-bottom:0.75rem;">Continuous Assessment consists of two structured tests (15 Marks each) or a test plus practical lab report. Total CA = 30 Marks.</p>
+              <h4 style="font-weight:700; color:var(--afued-green); margin-bottom:0.35rem;">4. Official Result Verification</h4>
+              <p>Each printable result slip bears an encrypted verification identifier authenticating the student's standing with the ICT Registry.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 2: STUDENT CBT ASSESSMENTS
+           =================================================================== -->
+      <section id="view-assessments" class="view-section">
+        <div class="card-header" style="border:none; padding-bottom:0;">
+          <div>
+            <h2 class="card-title" style="font-size:1.4rem;">Enrolled Continuous Assessments &amp; CBT Tests</h2>
+            <p class="card-subtitle">Available tests for the <strong class="current-session-label">2024/2025 Academic Session</strong></p>
+          </div>
+          <button class="btn btn-secondary" data-nav-target="gradebook">View My CA Gradebook</button>
+        </div>
+
+        <!-- Assessments Grid Container -->
+        <div class="grid-3" id="available-assessments-grid" style="margin-top:1.25rem;">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 3: STUDENT GRADEBOOK & OFFICIAL SLIP
+           =================================================================== -->
+      <section id="view-gradebook" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Official Continuous Assessment Gradebook</h2>
+              <p class="card-subtitle">Candidate: Babatunde Adewale Samuel | Matric: AFUED/2021/CSC/0481 | Level: 300 Level</p>
+            </div>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn btn-primary" id="btn-open-print-slip">🖨️ Generate Official Result Slip</button>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Title</th>
+                  <th style="text-align:center;">Test 1 (15)</th>
+                  <th style="text-align:center;">Test 2 (15)</th>
+                  <th style="text-align:center;">Total CA (30)</th>
+                  <th style="text-align:center;">Exam (70)</th>
+                  <th style="text-align:center;">Total (100)</th>
+                  <th style="text-align:center;">Letter Grade</th>
+                  <th>Verification</th>
+                </tr>
+              </thead>
+              <tbody id="student-gradebook-body">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding:1rem; background:var(--afued-green-subtle); border-radius:var(--radius-md); border:1px solid var(--afued-green-border);">
+            <div>
+              <span style="font-size:0.85rem; color:var(--afued-green-dark); font-weight:700;">Overall Continuous Assessment Standing:</span>
+              <p style="font-size:0.78rem; color:var(--slate-600);">Calculated over 5 registered departmental and general courses</p>
+            </div>
+            <div style="text-align:right;">
+              <span id="student-standing-average" style="font-size:1.4rem; font-weight:900; color:var(--afued-green-dark);">76.8%</span>
+              <span class="badge badge-green" style="margin-left:0.5rem;">First Class Standing</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 4: LECTURER WORKSPACE
+           =================================================================== -->
+      <section id="view-lecturer" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-gold" style="margin-bottom:0.25rem;">Academic Staff Portal</span>
+              <h2 class="card-title">Lecturer Workspace &amp; Assessment Management</h2>
+              <p class="card-subtitle">Staff: Dr. (Mrs) K. E. Adeleke (AFUED/STF/0892) | Department of Computer Science</p>
+            </div>
+            <div>
+              <button class="btn btn-primary" id="btn-open-create-assessment">➕ Create New Assessment</button>
+            </div>
+          </div>
+
+          <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.85rem; color:var(--slate-800);">Your Active Course Assessments</h3>
+          <div id="lecturer-assessments-list">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Continuous Assessment Marksheet Upload -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Continuous Assessment Marksheet: CSC 301</h3>
+              <p class="card-subtitle">Enter and verify student continuous assessment and exam marks for Senate submission</p>
+            </div>
+            <button class="btn btn-accent" id="btn-submit-scores-senate">📤 Submit Scores to Senate</button>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Matric Number</th>
+                  <th>Student Full Name</th>
+                  <th style="text-align:center;">Total CA (30)</th>
+                  <th style="text-align:center;">Exam Mark (70)</th>
+                  <th style="text-align:center;">Total Score (100)</th>
+                  <th style="text-align:center;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="lecturer-score-table-body">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 5: ICT ADMINISTRATION
+           =================================================================== -->
+      <section id="view-admin" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-blue" style="margin-bottom:0.25rem;">Directorate of ICT</span>
+              <h2 class="card-title">University Academic Session &amp; System Configuration</h2>
+              <p class="card-subtitle">Chief Officer: Prof. O. M. Fashola | Adeyemi Federal University of Education</p>
+            </div>
+            <span class="badge badge-green">CBT Engine Online</span>
+          </div>
+
+          <div class="grid-2">
+            <!-- Academic Session Configuration Box -->
+            <div style="border:1px solid var(--slate-200); padding:1.25rem; border-radius:var(--radius-md); background:var(--slate-50);">
+              <h4 style="font-weight:700; color:var(--afued-green-dark); margin-bottom:0.5rem;">Academic Session Controller</h4>
+              <p style="font-size:0.8rem; color:var(--slate-600); margin-bottom:1rem;">
+                Modifying this value updates all candidate scorecards, result slips, and lecturer marksheet banners across the entire institution.
+              </p>
+              <div class="form-group">
+                <label class="form-label" for="admin-session-input">Active Academic Session</label>
+                <input type="text" id="admin-session-input" class="form-input" value="2024/2025" />
+              </div>
+              <button class="btn btn-primary btn-sm" id="btn-admin-save-session">Save &amp; Propagate Session</button>
+            </div>
+
+            <!-- Server & Examination Statistics -->
+            <div style="border:1px solid var(--slate-200); padding:1.25rem; border-radius:var(--radius-md); background:var(--slate-50);">
+              <h4 style="font-weight:700; color:var(--afued-green-dark); margin-bottom:0.5rem;">System &amp; CBT Server Telemetry</h4>
+              <ul style="font-size:0.85rem; color:var(--slate-700); list-style:none; display:flex; flex-direction:column; gap:0.5rem;">
+                <li>🖥️ <strong>Server Node:</strong> AFUED-ICT-PROD-01 (Ondo Campus)</li>
+                <li>👥 <strong>Active Registered Students:</strong> 4,820 Candidates</li>
+                <li>📚 <strong>Participating Schools:</strong> 6 Academic Faculties</li>
+                <li>🔒 <strong>Proctoring Encryption:</strong> SHA-256 Hash Verification Active</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Academic Structure (Schools & Departments) -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">AFUED Academic Schools &amp; Faculties Directory</h3>
+            <span class="badge badge-gold">Senate Registry</span>
+          </div>
+          <div class="grid-3">
+            <div style="border:1px solid var(--slate-200); padding:1rem; border-radius:var(--radius-sm);">
+              <h4 style="font-size:0.9rem; font-weight:700; color:var(--afued-green);">School of Science</h4>
+              <p style="font-size:0.75rem; color:var(--slate-600); margin-top:0.25rem;">Computer Science, Mathematics, Physics, Chemistry, Biology, Integrated Science</p>
+            </div>
+            <div style="border:1px solid var(--slate-200); padding:1rem; border-radius:var(--radius-sm);">
+              <h4 style="font-size:0.9rem; font-weight:700; color:var(--afued-green);">School of Education</h4>
+              <p style="font-size:0.75rem; color:var(--slate-600); margin-top:0.25rem;">Educational Foundation, Curriculum Studies, Educational Technology, Guidance &amp; Counselling</p>
+            </div>
+            <div style="border:1px solid var(--slate-200); padding:1rem; border-radius:var(--radius-sm);">
+              <h4 style="font-size:0.9rem; font-weight:700; color:var(--afued-green);">School of Arts &amp; Social Sciences</h4>
+              <p style="font-size:0.75rem; color:var(--slate-600); margin-top:0.25rem;">Economics, Geography, History, Political Science, Social Studies, Christian Religious Studies</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===================================================================
+         MODAL 1: CBT EXAMINATION ENVIRONMENT (FULLSCREEN-STYLE MODAL)
+         =================================================================== -->
+    <div id="cbt-exam-modal" class="modal-backdrop hidden">
+      <div class="modal-content" style="max-width:900px;">
+        <div class="modal-header">
+          <div>
+            <span class="badge badge-green" style="margin-bottom:0.25rem;">AFUED Computer-Based Assessment</span>
+            <h3 id="exam-modal-title" style="font-size:1.2rem; font-weight:800; color:var(--afued-green-dark);">
+              CSC 301 - Structured Programming
+            </h3>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div id="exam-timer-display" class="exam-timer-box">⏱ 10:00</div>
+            <button id="btn-exam-close" class="btn btn-sm btn-secondary" title="Exit Test">✕</button>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="question-meta-bar">
+            <span id="current-q-index-badge" class="question-number-badge">Question 1 of 5</span>
+            <button id="btn-exam-flag" class="btn btn-sm btn-secondary">🏳 Flag for Review</button>
+          </div>
+
+          <div id="exam-question-text" class="question-text">
+            Loading examination question...
+          </div>
+
+          <div id="exam-options-container" class="options-list">
+            <!-- Dynamic multiple choice options -->
+          </div>
+
+          <!-- Question Palette Navigation -->
+          <div class="question-palette-wrap">
+            <div class="palette-legend">
+              <span class="legend-item"><span class="legend-color" style="background:var(--afued-green);"></span> Answered</span>
+              <span class="legend-item"><span class="legend-color" style="background:var(--white); border:1px solid #94a3b8;"></span> Unanswered</span>
+              <span class="legend-item"><span class="legend-color" style="background:var(--gold);"></span> Flagged</span>
+            </div>
+            <div id="exam-palette-container" class="question-palette">
+              <!-- Dynamically populated numbered buttons -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btn-exam-prev" class="btn btn-secondary" disabled>← Previous</button>
+          <button id="btn-exam-next" class="btn btn-secondary">Next Question →</button>
+          <button id="btn-exam-submit" class="btn btn-primary" style="margin-left:auto;">✓ Submit Assessment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         MODAL 2: OFFICIAL PRINTABLE RESULT SLIP PREVIEW
+         =================================================================== -->
+    <div id="print-slip-modal" class="modal-backdrop hidden">
+      <div class="modal-content" style="max-width:850px;">
+        <div class="modal-header no-print">
+          <h3 style="font-size:1.15rem; font-weight:800; color:var(--afued-green-dark);">
+            Official Continuous Assessment Result Slip Preview
+          </h3>
+          <div style="display:flex; gap:0.5rem;">
+            <button id="btn-trigger-print" class="btn btn-primary btn-sm">🖨️ Print Now</button>
+            <button id="btn-close-print-slip" class="btn btn-secondary btn-sm">Close</button>
+          </div>
+        </div>
+
+        <div class="modal-body" style="padding:1.5rem;">
+          <!-- PRINTABLE RESULT SLIP ELEMENT -->
+          <div id="printable-slip">
+            <!-- University Header -->
+            <div class="slip-crest-row">
+              <div class="slip-crest-logo">A</div>
+              <div>
+                <h2 style="font-size:1.35rem; font-weight:900; color:#0B532E; text-transform:uppercase; letter-spacing:-0.5px;">
+                  ADEYEMI FEDERAL UNIVERSITY OF EDUCATION, ONDO
+                </h2>
+                <p style="font-size:0.85rem; font-weight:700; color:#334155;">DIRECTORATE OF ICT &amp; ACADEMIC AFFAIRS</p>
+                <p style="font-size:0.8rem; color:#64748b; font-style:italic;">Official Continuous Assessment Statement of Results</p>
+              </div>
+            </div>
+
+            <!-- Candidate Metadata Box -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-size:0.85rem; margin-bottom:1.5rem; background:#f8fafc; padding:1rem; border:1px solid #e2e8f0; border-radius:6px;">
+              <div><strong>Candidate Full Name:</strong> <span id="slip-student-name">Babatunde Adewale Samuel</span></div>
+              <div><strong>Matriculation Number:</strong> <span id="slip-student-matric" style="color:#0B532E; font-weight:800;">AFUED/2021/CSC/0481</span></div>
+              <div><strong>Faculty / School:</strong> <span id="slip-student-school">School of Science</span></div>
+              <div><strong>Academic Department:</strong> <span id="slip-student-dept">Computer Science</span></div>
+              <div><strong>Programme &amp; Level:</strong> <span id="slip-student-level">300 Level - B.Sc. (Ed) Computer Science</span></div>
+              <div><strong>Academic Session:</strong> <span id="slip-student-session" class="current-session-label" style="font-weight:700; color:#0B532E;">2024/2025</span></div>
+            </div>
+
+            <!-- Grades Table -->
+            <table style="width:100%; border-collapse:collapse; font-size:0.85rem; margin-bottom:1.5rem;">
+              <thead>
+                <tr style="background:#0B532E; color:white;">
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:left;">Course</th>
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:left;">Course Title</th>
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:center;">CA (30)</th>
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:center;">Exam (70)</th>
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:center;">Total (100)</th>
+                  <th style="padding:8px 10px; border:1px solid #0B532E; text-align:center;">Grade</th>
+                </tr>
+              </thead>
+              <tbody id="slip-grades-tbody">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+
+            <!-- Institutional Signatures & Verification -->
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:2.5rem; padding-top:1.5rem; border-top:1px dashed #94a3b8; font-size:0.8rem;">
+              <div style="text-align:center; width:200px;">
+                <div style="border-bottom:1px solid #334155; margin-bottom:0.4rem; height:24px;"></div>
+                <strong>Head of Department</strong><br>
+                <span>Department of Computer Science</span>
+              </div>
+              <div style="text-align:center; font-size:0.75rem; color:#475569;">
+                <div style="border:1px solid #cbd5e1; padding:0.4rem 0.6rem; border-radius:4px; margin-bottom:0.25rem;">
+                  <strong>VERIFICATION HASH:</strong><br>
+                  <span id="slip-verification-hash" style="font-family:monospace; font-weight:bold; color:#0B532E;">AFUED-98A72B-2025</span>
+                </div>
+                <span>Printed: <span id="slip-date-printed"></span></span>
+              </div>
+              <div style="text-align:center; width:200px;">
+                <div style="border-bottom:1px solid #334155; margin-bottom:0.4rem; height:24px;"></div>
+                <strong>Director of ICT</strong><br>
+                <span>AFUED Central CBT Secretariat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         MODAL 3: CREATE ASSESSMENT (LECTURER WIZARD)
+         =================================================================== -->
+    <div id="create-assessment-modal" class="modal-backdrop hidden">
+      <div class="modal-content" style="max-width:650px;">
+        <div class="modal-header">
+          <h3 style="font-size:1.15rem; font-weight:800; color:var(--afued-green-dark);">
+            Create New Continuous Assessment / CBT Test
+          </h3>
+          <button id="btn-close-create-modal" class="btn btn-sm btn-secondary">✕</button>
+        </div>
+        <form id="form-create-assessment">
+          <div class="modal-body">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="new-ass-code">Course Code</label>
+                <input type="text" id="new-ass-code" class="form-input" placeholder="e.g. CSC 305" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-ass-title">Course Title</label>
+                <input type="text" id="new-ass-title" class="form-input" placeholder="e.g. Operating Systems" required />
+              </div>
+            </div>
+
+            <div class="grid-3">
+              <div class="form-group">
+                <label class="form-label" for="new-ass-type">Assessment Type</label>
+                <select id="new-ass-type" class="form-select">
+                  <option value="Continuous Assessment Test 1">CA Test 1 (15 Marks)</option>
+                  <option value="Continuous Assessment Test 2">CA Test 2 (15 Marks)</option>
+                  <option value="Mid-Semester Quiz">Mid-Semester Quiz</option>
+                  <option value="Practical CBT Lab">Practical CBT Lab</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-ass-duration">Duration (Minutes)</label>
+                <input type="number" id="new-ass-duration" class="form-input" value="10" min="5" max="180" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-ass-marks">Marks Allocated</label>
+                <input type="number" id="new-ass-marks" class="form-input" value="15" min="5" max="30" />
+              </div>
+            </div>
+
+            <div style="margin-top:1rem; border-top:1px solid var(--slate-200); padding-top:1rem;">
+              <h4 style="font-size:0.9rem; font-weight:700; color:var(--afued-green); margin-bottom:0.5rem;">Sample Question 1</h4>
+              <div class="form-group">
+                <label class="form-label" for="new-q1-text">Question Prompt</label>
+                <textarea id="new-q1-text" class="form-textarea" rows="2" placeholder="Enter multiple choice question..." required>Which process scheduling algorithm guarantees minimum average waiting time for a given set of processes?</textarea>
+              </div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="new-q1-a">Option A</label>
+                  <input type="text" id="new-q1-a" class="form-input" value="First-Come, First-Served (FCFS)" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-q1-b">Option B</label>
+                  <input type="text" id="new-q1-b" class="form-input" value="Shortest Job First (SJF)" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-q1-c">Option C</label>
+                  <input type="text" id="new-q1-c" class="form-input" value="Round Robin (RR)" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-q1-d">Option D</label>
+                  <input type="text" id="new-q1-d" class="form-input" value="Priority Inversion" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-q1-correct">Correct Option</label>
+                <select id="new-q1-correct" class="form-select">
+                  <option value="0">Option A</option>
+                  <option value="1" selected>Option B (Correct)</option>
+                  <option value="2">Option C</option>
+                  <option value="3">Option D</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('create-assessment-modal').classList.add('hidden')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Publish Assessment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Official Institutional Footer -->
+    <footer>
+      <p>
+        <strong>Adeyemi Federal University of Education (AFUED), Ondo</strong><br>
+        Directorate of Information &amp; Communication Technology (ICT) | Senate Approved Digital Assessment Infrastructure<br>
+        P.M.B. 520, Ondo City, Ondo State, Nigeria. Built with Pure HTML5, CSS3, &amp; Vanilla JavaScript.
+      </p>
+    </footer>
+
+    <!-- Pure Vanilla JavaScript Main Application Script -->
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>

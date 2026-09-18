@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFUED Continuous Assessment & CBT Portal (HTML, CSS & JavaScript)</title>
+  <meta name="description" content="Official Continuous Assessment & CBT Examination Portal for Adeyemi Federal University of Education (AFUED), Ondo - Pure HTML, CSS, and JavaScript Edition." />
+  <style>
+    :root {
+      --afued-green: #0B532E;
+      --afued-green-dark: #07361E;
+      --afued-green-light: #167a46;
+      --afued-green-subtle: #ebf5f0;
+      --gold: #D4AF37;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --white: #ffffff;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --warning: #f59e0b;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      background-color: var(--afued-green-dark);
+      color: #a7f3d0;
+      font-size: 0.75rem;
+      padding: 0.5rem 1.25rem;
+      border-bottom: 1px solid #064e28;
+    }
+    .top-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .institution-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #ecfdf5;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #34d399;
+      display: inline-block;
+    }
+    .session-indicator {
+      font-weight: 700;
+      color: #fef08a;
+      background-color: rgba(0, 0, 0, 0.25);
+      padding: 0.15rem 0.6rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(254, 240, 138, 0.3);
+    }
+
+    .main-header {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-logo-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--afued-green), var(--afued-green-dark));
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      border: 2px solid var(--gold);
+    }
+    .brand-names h1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--afued-green-dark);
+      line-height: 1.2;
+    }
+    .brand-names p {
+      font-size: 0.75rem;
+      color: var(--slate-600);
+    }
+
+    .role-switcher {
+      display: flex;
+      background-color: var(--slate-100);
+      padding: 0.25rem;
+      border-radius: 10px;
+      gap: 0.25rem;
+    }
+    .role-tab {
+      background: none;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .role-tab.active {
+      background-color: var(--white);
+      color: var(--afued-green);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1.25rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .card {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--slate-100);
+      padding-bottom: 0.75rem;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .user-hero {
+      background: linear-gradient(135deg, var(--afued-green), #0a4627);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .user-hero h2 { font-size: 1.35rem; font-weight: 800; }
+    .user-hero p { font-size: 0.85rem; opacity: 0.9; margin-top: 0.25rem; }
+
+    .hero-stats { display: flex; gap: 1.5rem; }
+    .stat-box {
+      background-color: rgba(255, 255, 255, 0.12);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+    .stat-box .stat-val { font-size: 1.2rem; font-weight: 800; display: block; }
+    .stat-box .stat-lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
+
+    .assessment-item {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      background-color: var(--white);
+      transition: transform 0.15s, border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .assessment-item:hover {
+      border-color: var(--afued-green);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+    .badge-green { background-color: #dcfce7; color: #166534; }
+    .badge-gold { background-color: #fef9c3; color: #854d0e; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-primary { background-color: var(--afued-green); color: var(--white); }
+    .btn-primary:hover { background-color: var(--afued-green-dark); }
+    .btn-secondary { background-color: var(--slate-100); color: var(--slate-700); border: 1px solid var(--slate-200); }
+    .btn-secondary:hover { background-color: var(--slate-200); }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
+
+    .data-table-container { overflow-x: auto; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .data-table th {
+      background-color: var(--slate-100);
+      color: var(--slate-700);
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-800);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(15, 23, 42, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+    .modal-backdrop.hidden { display: none; }
+    .modal-content {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--slate-50);
+    }
+    .modal-body { padding: 1.5rem; }
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--slate-200);
+      background-color: var(--slate-50);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .exam-timer {
+      background-color: var(--danger-light);
+      color: var(--danger);
+      font-weight: 800;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+    .question-box { margin: 1.5rem 0; }
+    .question-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; color: var(--slate-900); }
+    .options-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .option-label:hover { background-color: var(--afued-green-subtle); border-color: var(--afued-green-light); }
+    .option-label.selected { background-color: var(--afued-green-subtle); border-color: var(--afued-green); font-weight: 600; }
+
+    .question-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--slate-200);
+    }
+    .palette-btn {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--slate-300);
+      border-radius: 6px;
+      background-color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .palette-btn.active { border-color: var(--afued-green); box-shadow: 0 0 0 2px var(--afued-green); }
+    .palette-btn.answered { background-color: var(--afued-green); color: var(--white); border-color: var(--afued-green); }
+
+    @media print {
+      body * { visibility: hidden; }
+      #printable-slip, #printable-slip * { visibility: visible; }
+      #printable-slip { position: absolute; left: 0; top: 0; width: 100%; }
+      .no-print { display: none !important; }
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: var(--afued-green-dark);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      border-top: 1px solid #064e28;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Institutional Top Notification Bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="institution-title">
+        <span class="pulse-dot"></span>
+        <span>Adeyemi Federal University of Education (AFUED), Ondo</span>
+        <span style="opacity: 0.7;">• Directorate of ICT</span>
+      </div>
+      <div id="top-session-text" class="session-indicator">
+        2024/2025 Academic Session Continuous Assessment Portal Active
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand-badge">
+        <div class="brand-logo-circle">A</div>
+        <div class="brand-names">
+          <h1>AFUED CA & CBT PORTAL</h1>
+          <p>HTML, CSS & JavaScript Edition</p>
+        </div>
+      </div>
+
+      <div class="role-switcher" role="tablist">
+        <button class="role-tab active" data-role="student" role="tab">Student</button>
+        <button class="role-tab" data-role="lecturer" role="tab">Lecturer</button>
+        <button class="role-tab" data-role="admin" role="tab">ICT Admin</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View -->
+  <main class="container">
+    <!-- STUDENT VIEW -->
+    <section id="student-view">
+      <div class="user-hero">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Student Profile</span>
+          <h2>Adewale T. Babatunde</h2>
+          <p>AFUED/2021/CSC/0481 • B.Sc. (Ed) Computer Science • 300 Level</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-val" id="student-current-session">2024/2025</span>
+            <span class="stat-lbl">Active Session</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">First</span>
+            <span class="stat-lbl">Semester</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">30%</span>
+            <span class="stat-lbl">CA Weight</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Enrolled Continuous Assessments</h3>
+            <p style="font-size: 0.8rem; color: var(--slate-600); margin-top: 0.2rem;">
+              Timed continuous assessment tests and quizzes.
+            </p>
+          </div>
+        </div>
+        <div id="student-assessments-list" class="grid-2"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Verified Gradebook Records</h3>
+        </div>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Course Title</th>
+                <th>Units</th>
+                <th>Test 1 (15)</th>
+                <th>Test 2 (15)</th>
+                <th>Total CA (30)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CSC 301</strong></td>
+                <td>Operating Systems & Concurrency</td>
+                <td>3</td>
+                <td>14 / 15</td>
+                <td>13 / 15</td>
+                <td style="font-weight: 700; color: var(--afued-green);">27 / 30</td>
+                <td><span class="badge badge-green">Verified</span></td>
+              </tr>
+              <tr>
+                <td><strong>CSC 305</strong></td>
+                <td>Database Design & SQL Architecture</td>
+                <td>3</td>
+                <td>15 / 15</td>
+                <td>14 / 15</td>
+                <td style="font-weight: 700; color: var(--afued-green);">29 / 30</td>
+                <td><span class="badge badge-green">Verified</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- LECTURER VIEW -->
+    <section id="lecturer-view" style="display: none;">
+      <div class="user-hero">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Academic Staff</span>
+          <h2>Dr. (Mrs) K. E. Adeleke</h2>
+          <p>Staff ID: AFUED/STF/0892 • Senior Lecturer in Computer Science</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-val">2</span>
+            <span class="stat-lbl">Courses</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">128</span>
+            <span class="stat-lbl">Students</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Course Continuous Assessment Overview</h3>
+        </div>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Matric No</th>
+                <th>Student Name</th>
+                <th>CA Score (30)</th>
+                <th>Exam Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AFUED/2021/CSC/0481</td>
+                <td>Babatunde A. T.</td>
+                <td style="font-weight: bold; color: var(--afued-green);">27</td>
+                <td>Pending Exam</td>
+              </tr>
+              <tr>
+                <td>AFUED/2021/CSC/0482</td>
+                <td>Okonkwo C. E.</td>
+                <td style="font-weight: bold; color: var(--afued-green);">25</td>
+                <td>Pending Exam</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN VIEW -->
+    <section id="admin-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">AFUED Academic Session Settings</h3>
+        </div>
+        <div style="background: var(--afued-green-subtle); padding: 1.25rem; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--afued-green-dark); margin-bottom: 0.5rem;">
+            Current Active Session: <span id="active-session-badge" style="color: var(--afued-green);">2024/2025</span>
+          </h4>
+          <div style="display: flex; gap: 0.75rem; max-width: 420px;">
+            <input id="admin-session-input" type="text" placeholder="e.g. 2025/2026" style="flex: 1; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px;" />
+            <button id="admin-session-save-btn" class="btn btn-primary btn-sm">Save Session</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CBT MODAL -->
+  <div id="exam-modal" class="modal-backdrop hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 id="cbt-course-title" style="font-size: 1rem; font-weight: 700; color: var(--afued-green);">CBT Exam</h3>
+          <p style="font-size: 0.75rem; color: var(--slate-600);">AFUED Online Assessment Engine</p>
+        </div>
+        <div id="cbt-timer" class="exam-timer">⏱ 15:00</div>
+      </div>
+      <div class="modal-body">
+        <div id="cbt-question-container"></div>
+        <div style="margin-top: 1rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">Questions</span>
+          <div id="cbt-palette" class="question-palette"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-close-exam" class="btn btn-secondary btn-sm">Cancel</button>
+        <button id="btn-prev-question" class="btn btn-secondary btn-sm">Previous</button>
+        <button id="btn-next-question" class="btn btn-secondary btn-sm">Next</button>
+        <button id="btn-submit-exam" class="btn btn-primary btn-sm" style="background-color: #15803d;">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SLIP MODAL -->
+  <div id="result-modal" class="modal-backdrop hidden">
+    <div class="modal-content">
+      <div class="modal-header no-print">
+        <h3 style="font-size: 1rem; font-weight: 700;">Official Result Slip</h3>
+        <button id="btn-close-result" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+      <div class="modal-body">
+        <div id="slip-content"></div>
+      </div>
+      <div class="modal-footer no-print">
+        <button id="btn-print-result" class="btn btn-primary btn-sm">Print Official Slip</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Adeyemi Federal University of Education (AFUED), Ondo • Pure HTML, CSS & JavaScript Edition</p>
+  </footer>
+
+  <script>
+    // Embedded Vanilla JavaScript
+    const state = {
+      activeSession: localStorage.getItem('afued_active_session') || '2024/2025',
+      currentRole: 'student',
+      assessments: [
+        {
+          id: 'csc-301-ca1',
+          code: 'CSC 301',
+          title: 'Operating Systems & Concurrency',
+          type: 'Continuous Assessment 1',
+          totalMarks: 30,
+          durationMinutes: 15,
+          score: null,
+          questions: [
+            { id: 1, text: 'Which CPU scheduling algorithm gives minimum average waiting time?', options: ['FCFS', 'SJF', 'Round Robin', 'Priority'], correct: 1 },
+            { id: 2, text: 'What is a critical section?', options: ['Shared resource access code', 'Bootloader', 'Disk sector', 'Memory leak'], correct: 0 },
+            { id: 3, text: 'Which is NOT a Coffman condition?', options: ['Mutual Exclusion', 'Hold & Wait', 'Preemption Allowed', 'Circular Wait'], correct: 2 }
+          ]
+        },
+        {
+          id: 'csc-305-ca2',
+          code: 'CSC 305',
+          title: 'Database Design & SQL Architecture',
+          type: 'Continuous Assessment 2',
+          totalMarks: 30,
+          durationMinutes: 20,
+          score: null,
+          questions: [
+            { id: 1, text: 'Which normal form eliminates partial dependency?', options: ['1NF', '2NF', '3NF', 'BCNF'], correct: 1 },
+            { id: 2, text: 'Keyword to eliminate duplicates?', options: ['UNIQUE', 'DISTINCT', 'DIFFERENT', 'ISOLATE'], correct: 1 }
+          ]
+        }
+      ],
+      activeExam: { assessment: null, currentQuestionIndex: 0, answers: {}, timeRemainingSeconds: 0, timerInterval: null }
+    };
+
+    function updateSessionUI() {
+      document.getElementById('top-session-text').textContent = state.activeSession + ' Academic Session Continuous Assessment Portal Active';
+      document.getElementById('active-session-badge').textContent = state.activeSession;
+      const s = document.getElementById('student-current-session');
+      if (s) s.textContent = state.activeSession;
+    }
+
+    function setupRoleSwitching() {
+      document.querySelectorAll('.role-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const role = tab.getAttribute('data-role');
+          document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('student-view').style.display = role === 'student' ? 'block' : 'none';
+          document.getElementById('lecturer-view').style.display = role === 'lecturer' ? 'block' : 'none';
+          document.getElementById('admin-view').style.display = role === 'admin' ? 'block' : 'none';
+        });
+      });
+    }
+
+    function renderStudentAssessments() {
+      const container = document.getElementById('student-assessments-list');
+      if (!container) return;
+      container.innerHTML = '';
+      state.assessments.forEach(ass => {
+        const card = document.createElement('div');
+        card.className = 'assessment-item';
+        const isCompleted = ass.score !== null;
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="font-weight: 800; color: var(--afued-green); font-size: 1.1rem;">${ass.code}</span>
+              <span class="badge ${isCompleted ? 'badge-green' : 'badge-gold'}">${isCompleted ? 'COMPLETED' : 'AVAILABLE'}</span>
+            </div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem;">${ass.title}</h4>
+            <p style="font-size: 0.75rem; color: var(--slate-600); margin-bottom: 0.75rem;">
+              ${ass.type} • <strong>${ass.totalMarks} Marks</strong> • ${ass.durationMinutes} Mins
+            </p>
+          </div>
+          <div style="border-top: 1px solid var(--slate-200); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 600; color: ${isCompleted ? 'var(--afued-green)' : 'var(--slate-600)'}">
+              ${isCompleted ? 'Score: ' + ass.score + ' / ' + ass.totalMarks : 'Not attempted'}
+            </span>
+            <button class="btn btn-sm ${isCompleted ? 'btn-secondary' : 'btn-primary'}">
+              ${isCompleted ? 'View Result' : 'Start CBT Test'}
+            </button>
+          </div>
+        `;
+        card.querySelector('button').addEventListener('click', () => isCompleted ? showResultSlip(ass) : startCBT(ass.id));
+        container.appendChild(card);
+      });
+    }
+
+    function startCBT(id) {
+      const ass = state.assessments.find(a => a.id === id);
+      if (!ass) return;
+      state.activeExam = { assessment: ass, currentQuestionIndex: 0, answers: {}, timeRemainingSeconds: ass.durationMinutes * 60, timerInterval: null };
+      document.getElementById('cbt-course-title').textContent = ass.code + ' - ' + ass.title;
+      renderQuestion();
+      renderPalette();
+      updateTimerDisplay();
+      state.activeExam.timerInterval = setInterval(() => {
+        state.activeExam.timeRemainingSeconds--;
+        updateTimerDisplay();
+        if (state.activeExam.timeRemainingSeconds <= 0) {
+          clearInterval(state.activeExam.timerInterval);
+          alert('Time expired! Submitting.');
+          submitCBT();
+        }
+      }, 1000);
+      document.getElementById('exam-modal').classList.remove('hidden');
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(state.activeExam.timeRemainingSeconds / 60);
+      const s = state.activeExam.timeRemainingSeconds % 60;
+      document.getElementById('cbt-timer').textContent = `⏱ ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function renderQuestion() {
+      const ass = state.activeExam.assessment;
+      const idx = state.activeExam.currentQuestionIndex;
+      const q = ass.questions[idx];
+      document.getElementById('cbt-question-container').innerHTML = `
+        <div class="question-box">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--afued-green); margin-bottom: 0.25rem;">Question ${idx + 1} of ${ass.questions.length}</div>
+          <div class="question-text">${q.text}</div>
+          <div class="options-list">
+            ${q.options.map((opt, optIdx) => `
+              <div class="option-label ${state.activeExam.answers[q.id] === optIdx ? 'selected' : ''}" onclick="selectOption(${q.id}, ${optIdx})">
+                <input type="radio" name="opt" ${state.activeExam.answers[q.id] === optIdx ? 'checked' : ''} />
+                <span>${opt}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      document.getElementById('btn-prev-question').disabled = idx === 0;
+      document.getElementById('btn-next-question').disabled = idx === ass.questions.length - 1;
+    }
+
+    function selectOption(qId, optIdx) {
+      state.activeExam.answers[qId] = optIdx;
+      renderQuestion();
+      renderPalette();
+    }
+
+    function renderPalette() {
+      const palette = document.getElementById('cbt-palette');
+      palette.innerHTML = '';
+      state.activeExam.assessment.questions.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn ' + (i === state.activeExam.currentQuestionIndex ? 'active ' : '') + (state.activeExam.answers[q.id] !== undefined ? 'answered' : '');
+        btn.textContent = i + 1;
+        btn.onclick = () => { state.activeExam.currentQuestionIndex = i; renderQuestion(); renderPalette(); };
+        palette.appendChild(btn);
+      });
+    }
+
+    function submitCBT() {
+      if (state.activeExam.timerInterval) clearInterval(state.activeExam.timerInterval);
+      const ass = state.activeExam.assessment;
+      let count = 0;
+      ass.questions.forEach(q => { if (state.activeExam.answers[q.id] === q.correct) count++; });
+      ass.score = Math.round((count / ass.questions.length) * ass.totalMarks);
+      document.getElementById('exam-modal').classList.add('hidden');
+      renderStudentAssessments();
+      showResultSlip(ass);
+    }
+
+    function showResultSlip(ass) {
+      const pct = Math.round((ass.score / ass.totalMarks) * 100);
+      const grade = pct >= 70 ? 'A' : pct >= 60 ? 'B' : pct >= 50 ? 'C' : 'F';
+      document.getElementById('slip-content').innerHTML = `
+        <div id="printable-slip" style="padding: 1.5rem; border: 2px solid var(--afued-green); border-radius: 8px; background: white;">
+          <div style="text-align: center; border-bottom: 2px solid var(--afued-green); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+            <h2 style="color: var(--afued-green); font-size: 1.25rem; font-weight: 800;">Adeyemi Federal University of Education, Ondo</h2>
+            <p style="font-size: 0.8rem; font-weight: 700;">DIRECTORATE OF ICT • OFFICIAL SCORE REPORT</p>
+            <p style="font-size: 0.8rem; color: #b45309; font-weight: bold; margin-top: 0.25rem;">Academic Session: ${state.activeSession}</p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem; margin-bottom: 1.25rem; background: var(--slate-50); padding: 0.75rem; border-radius: 6px;">
+            <div><strong>Student:</strong> Adewale T. Babatunde</div>
+            <div><strong>Matric:</strong> AFUED/2021/CSC/0481</div>
+            <div><strong>Programme:</strong> B.Sc. (Ed) Computer Science</div>
+            <div><strong>Level:</strong> 300 Level</div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Course</th><th>Assessment</th><th>Total</th><th>Score</th><th>Grade</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>${ass.code}</strong></td><td>${ass.type}</td><td>${ass.totalMarks}</td><td style="font-weight: 800; color: var(--afued-green);">${ass.score}</td><td>${grade}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+      document.getElementById('result-modal').classList.remove('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateSessionUI();
+      setupRoleSwitching();
+      renderStudentAssessments();
+
+      document.getElementById('admin-session-save-btn').onclick = () => {
+        const val = document.getElementById('admin-session-input').value.trim();
+        if (val) {
+          state.activeSession = val;
+          localStorage.setItem('afued_active_session', val);
+          updateSessionUI();
+          alert('Academic session updated to ' + val);
+        }
+      };
+
+      document.getElementById('btn-prev-question').onclick = () => {
+        if (state.activeExam.currentQuestionIndex > 0) {
+          state.activeExam.currentQuestionIndex--;
+          renderQuestion();
+          renderPalette();
+        }
+      };
+
+      document.getElementById('btn-next-question').onclick = () => {
+        if (state.activeExam.currentQuestionIndex < state.activeExam.assessment.questions.length - 1) {
+          state.activeExam.currentQuestionIndex++;
+          renderQuestion();
+          renderPalette();
+        }
+      };
+
+      document.getElementById('btn-submit-exam').onclick = () => {
+        if (confirm('Submit your assessment now?')) submitCBT();
+      };
+
+      document.getElementById('btn-close-exam').onclick = () => {
+        if (confirm('Cancel exam attempt?')) {
+          clearInterval(state.activeExam.timerInterval);
+          document.getElementById('exam-modal').classList.add('hidden');
+        }
+      };
+
+      document.getElementById('btn-close-result').onclick = () => document.getElementById('result-modal').classList.add('hidden');
+      document.getElementById('btn-print-result').onclick = () => window.print();
+    });
+  </script>
+</body>
+</html>

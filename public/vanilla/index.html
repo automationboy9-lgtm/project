@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFUED Continuous Assessment & CBT Portal</title>
+  <meta name="description" content="Official Continuous Assessment & CBT Examination Portal for Adeyemi Federal University of Education (AFUED), Ondo." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- 1. Institutional Top Notification Bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="institution-title">
+        <span class="pulse-dot"></span>
+        <span>Adeyemi Federal University of Education (AFUED), Ondo</span>
+        <span style="opacity: 0.7;">• Directorate of ICT</span>
+      </div>
+      <div id="top-session-text" class="session-indicator">
+        2024/2025 Academic Session Continuous Assessment Portal Active
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Main Navigation Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand-badge">
+        <div class="brand-logo-circle">A</div>
+        <div class="brand-names">
+          <h1>AFUED CA & CBT PORTAL</h1>
+          <p>Continuous Assessment Management System</p>
+        </div>
+      </div>
+
+      <!-- Role Switcher -->
+      <div class="role-switcher" role="tablist">
+        <button class="role-tab active" data-role="student" role="tab">Student Portal</button>
+        <button class="role-tab" data-role="lecturer" role="tab">Lecturer Portal</button>
+        <button class="role-tab" data-role="admin" role="tab">ICT Admin</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Main Container -->
+  <main class="container">
+
+    <!-- ==================== STUDENT VIEW ==================== -->
+    <section id="student-view">
+      <!-- Student Hero Card -->
+      <div class="user-hero">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Welcome Back, Student</span>
+          <h2>Adewale T. Babatunde</h2>
+          <p>AFUED/2021/CSC/0481 • B.Sc. (Ed) Computer Science • 300 Level</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-val" id="student-current-session">2024/2025</span>
+            <span class="stat-lbl">Active Session</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">First</span>
+            <span class="stat-lbl">Semester</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">30%</span>
+            <span class="stat-lbl">CA Weight</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Available Assessments -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Enrolled Continuous Assessments</h3>
+            <p style="font-size: 0.8rem; color: var(--slate-600); margin-top: 0.2rem;">
+              Timed online assessments, quizzes, and continuous evaluation tests for your registered courses.
+            </p>
+          </div>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--afued-green); background: var(--afued-green-subtle); padding: 0.3rem 0.7rem; border-radius: 6px;">
+            Harmonized Grading Active
+          </span>
+        </div>
+
+        <div id="student-assessments-list" class="grid-2">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </div>
+
+      <!-- Historical Record Preview -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Continuous Assessment Gradebook Summary</h3>
+        </div>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Course Title</th>
+                <th>Units</th>
+                <th>Test 1 (15)</th>
+                <th>Test 2 (15)</th>
+                <th>Total CA (30)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CSC 301</strong></td>
+                <td>Operating Systems & Concurrency</td>
+                <td>3</td>
+                <td>14 / 15</td>
+                <td>13 / 15</td>
+                <td style="font-weight: 700; color: var(--afued-green);">27 / 30</td>
+                <td><span class="badge badge-green">Verified</span></td>
+              </tr>
+              <tr>
+                <td><strong>CSC 303</strong></td>
+                <td>Software Engineering Principles</td>
+                <td>3</td>
+                <td>12 / 15</td>
+                <td>14 / 15</td>
+                <td style="font-weight: 700; color: var(--afued-green);">26 / 30</td>
+                <td><span class="badge badge-green">Verified</span></td>
+              </tr>
+              <tr>
+                <td><strong>CSC 305</strong></td>
+                <td>Database Design & SQL Architecture</td>
+                <td>3</td>
+                <td>15 / 15</td>
+                <td>14 / 15</td>
+                <td style="font-weight: 700; color: var(--afued-green);">29 / 30</td>
+                <td><span class="badge badge-green">Verified</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LECTURER VIEW ==================== -->
+    <section id="lecturer-view" style="display: none;">
+      <div class="user-hero">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Academic Staff Portal</span>
+          <h2>Dr. (Mrs) K. E. Adeleke</h2>
+          <p>Staff ID: AFUED/STF/0892 • Dept of Computer Science • Senior Lecturer</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-val">2</span>
+            <span class="stat-lbl">Active Courses</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">128</span>
+            <span class="stat-lbl">Enrolled Students</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Assessment Creator Form -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Schedule Continuous Assessment</h3>
+          </div>
+          <form onsubmit="event.preventDefault(); alert('New assessment schedule logged for ICT verification.');">
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Select Course</label>
+                <select style="width: 100%; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.85rem;">
+                  <option>CSC 301 - Operating Systems (3 Units)</option>
+                  <option>CSC 305 - Database Design (3 Units)</option>
+                </select>
+              </div>
+
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Assessment Type</label>
+                <select style="width: 100%; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.85rem;">
+                  <option>Continuous Assessment 1 (15 Marks)</option>
+                  <option>Continuous Assessment 2 (15 Marks)</option>
+                  <option>Mid-Semester CBT Quiz (30 Marks)</option>
+                </select>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Duration (Minutes)</label>
+                  <input type="number" value="20" style="width: 100%; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.85rem;" />
+                </div>
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Total Questions</label>
+                  <input type="number" value="20" style="width: 100%; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.85rem;" />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                Publish CBT Test to Students
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Gradebook Sheet -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Class Score Submission & Approval</h3>
+          </div>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Matric No</th>
+                  <th>Student Name</th>
+                  <th>CA Score (30)</th>
+                  <th>Exam (70)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AFUED/2021/CSC/0481</td>
+                  <td>Babatunde A. T.</td>
+                  <td style="font-weight: bold; color: var(--afued-green);">27</td>
+                  <td>Pending</td>
+                </tr>
+                <tr>
+                  <td>AFUED/2021/CSC/0482</td>
+                  <td>Okonkwo C. E.</td>
+                  <td style="font-weight: bold; color: var(--afued-green);">25</td>
+                  <td>Pending</td>
+                </tr>
+                <tr>
+                  <td>AFUED/2021/CSC/0483</td>
+                  <td>Adeyemi O. F.</td>
+                  <td style="font-weight: bold; color: var(--afued-green);">29</td>
+                  <td>Pending</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ADMIN VIEW ==================== -->
+    <section id="admin-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">AFUED Academic Session & Institutional Settings</h3>
+            <p style="font-size: 0.8rem; color: var(--slate-600); margin-top: 0.2rem;">
+              Manage the active session displayed across all university continuous assessment portals.
+            </p>
+          </div>
+        </div>
+
+        <div style="background: var(--afued-green-subtle); padding: 1.25rem; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--afued-green-dark); margin-bottom: 0.5rem;">
+            Configure University Active Session
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--slate-700); margin-bottom: 1rem;">
+            Current Active Session: <strong id="active-session-badge" style="color: var(--afued-green); font-size: 1rem;">2024/2025</strong>
+          </p>
+          <div style="display: flex; gap: 0.75rem; max-width: 400px;">
+            <input id="admin-session-input" type="text" placeholder="e.g. 2025/2026" style="flex: 1; padding: 0.55rem; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.85rem;" />
+            <button id="admin-session-save-btn" class="btn btn-primary btn-sm">Set Active Session</button>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card" style="margin-bottom: 0;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.5rem;">Faculties / Schools</h4>
+            <p style="font-size: 1.5rem; font-weight: 800; color: var(--afued-green);">6</p>
+            <p style="font-size: 0.75rem; color: var(--slate-600);">Science, Arts, Education, Social Sciences, etc.</p>
+          </div>
+          <div class="card" style="margin-bottom: 0;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.5rem;">Academic Departments</h4>
+            <p style="font-size: 1.5rem; font-weight: 800; color: var(--afued-green);">28</p>
+            <p style="font-size: 0.75rem; color: var(--slate-600);">Computer Science, Mathematics, Biology, etc.</p>
+          </div>
+          <div class="card" style="margin-bottom: 0;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.5rem;">Active CBT Assessments</h4>
+            <p style="font-size: 1.5rem; font-weight: 800; color: var(--afued-green);">142</p>
+            <p style="font-size: 0.75rem; color: var(--slate-600);">Scheduled for 2024/2025 First Semester</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== CBT EXAM MODAL ==================== -->
+  <div id="exam-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 id="cbt-course-title" style="font-size: 1rem; font-weight: 700; color: var(--afued-green);">
+            CSC 301 - Operating Systems CBT
+          </h3>
+          <p style="font-size: 0.75rem; color: var(--slate-600);">Adeyemi Federal University of Education CBT Engine</p>
+        </div>
+        <div id="cbt-timer" class="exam-timer">
+          ⏱ 15:00
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div id="cbt-question-container">
+          <!-- Populated by app.js -->
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">
+            Question Navigator
+          </span>
+          <div id="cbt-palette" class="question-palette">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-close-exam" class="btn btn-secondary btn-sm">Cancel</button>
+        <button id="btn-prev-question" class="btn btn-secondary btn-sm">Previous</button>
+        <button id="btn-next-question" class="btn btn-secondary btn-sm">Next</button>
+        <button id="btn-submit-exam" class="btn btn-primary btn-sm" style="background-color: #15803d;">
+          Submit Exam
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PRINTABLE RESULT MODAL ==================== -->
+  <div id="result-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header no-print">
+        <h3 style="font-size: 1rem; font-weight: 700; color: var(--slate-800);">
+          Official Result Slip
+        </h3>
+        <button id="btn-close-result" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="slip-content">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <div class="modal-footer no-print">
+        <button id="btn-print-result" class="btn btn-primary btn-sm">
+          Print Official Slip
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Adeyemi Federal University of Education (AFUED), P.M.B. 520, Ondo, Ondo State, Nigeria.</p>
+    <p style="margin-top: 0.3rem;">Powered by AFUED ICT Directorate • Pure HTML5, CSS3 & Vanilla JavaScript Edition</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

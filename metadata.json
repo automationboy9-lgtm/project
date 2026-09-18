@@ -1,0 +1,6 @@
+{
+  "name": "AFUED/ACT ASSESS",
+  "description": "Professional digital assessment platform for Adeyemi Federal University of Education (AFUED). Supporting online tests, continuous assessment, result management, and academic administration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
